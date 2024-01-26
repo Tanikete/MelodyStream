@@ -26,6 +26,7 @@ const NavLinks = ({ handleClick }) => (
       </NavLink>
     ))}
   </div>
+  
 );
 
 const Sidebar = () => {
@@ -33,9 +34,29 @@ const Sidebar = () => {
 
   return (
     <>
+    
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#774f92]">
+   
         <img src={logo} alt="logo" className="w-full object-contain" />
+        
+        <div className='flex flex-row gap-4'>
+          <div>
+            <button noClick = {() => {}} className=' bg-transperent text-neutral-300 font-medium py-2'>
+              
+              Sign up
+            </button>
+          </div>
+          <div>
+            <button noClick = {() => {}} className=' bg-white px-6 py-2 rounded-full'>
+              
+              Login
+            </button>
+          </div>
+        </div>
+        
+        
         <NavLinks />
+        
       </div>
 
       {/* Mobile sidebar */}
@@ -49,7 +70,22 @@ const Sidebar = () => {
 
       <div className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${mobileMenuOpen ? 'left-0' : '-left-full'}`}>
         <img src={logo} alt="logo" className="w-full object-contain" />
+        <div className='flex flex-row gap-4'>
+          <div>
+            <button noClick = {() => {}} className='bg-transperent text-neutral-300 font-medium py-2'>
+              
+              Sign up
+            </button>
+          </div>
+          <div>
+            <button noClick = {() => {}} className='bg-white px-6 py-2 rounded-full'>
+              
+              Login
+            </button>
+          </div>
+        </div>
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
+        
       </div>
     </>
   );
