@@ -7,16 +7,25 @@ import NotFound from './components/NotFound';
 import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
 import LoginForm from './pages/Login';
 import SignupForm from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
+import { UserContextProvider } from '../context/userContext';
+
+axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.withCredentials = true;
 
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
 
   return (
+    <UserContextProvider>
     <div className="relative flex">
       <Sidebar />
       <div className="flex-1 flex flex-col bg-gradient-to-br from-[#8D7D98] to-[#000000]">
         <Searchbar />
+        <Toaster position='bottom-right' toastOptions={{duration:2000}} />
 
         <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
           <div className="flex-1 h-fit pb-40">
@@ -30,6 +39,7 @@ const App = () => {
               <Route path="/search/:searchTerm" element={<Search />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignupForm />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
@@ -45,6 +55,7 @@ const App = () => {
         </div>
       )}
     </div>
+    </UserContextProvider>
   );
 };
 
