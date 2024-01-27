@@ -5,6 +5,9 @@ import { Route, Routes } from 'react-router-dom';
 import { Searchbar, Sidebar, MusicPlayer, TopPlay} from './components';
 import NotFound from './components/NotFound';
 import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
+import LoginForm from './pages/Login';
+import SignupForm from './pages/Signup';
+
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
@@ -25,6 +28,8 @@ const App = () => {
               <Route path="/artists/:id" element={<ArtistDetails />} />
               <Route path="/songs/:songid" element={<SongDetails />} />
               <Route path="/search/:searchTerm" element={<Search />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/signup" element={<SignupForm />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
