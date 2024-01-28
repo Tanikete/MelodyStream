@@ -15,6 +15,10 @@ router.use(cors(
 router.get("/", test)
 router.post("/register", registerUser)
 router.post("/login", loginUser )
+router.post("/logout", (req, res) => {
+    // Perform any necessary operations for logout
+    res.json({ success: true, message: "Logout successful" });
+  });
 router.get('/profile', getProfile)
 
 
