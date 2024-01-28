@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { HiOutlineHashtag, HiOutlineHome, HiOutlineMenu, HiOutlinePhotograph, HiOutlineUserGroup } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
-// import Button from './Button';
+import Button from './Button';
 import Dashboard from '../pages/Dashboard';
 
 import { logo } from '../assets';
@@ -43,7 +43,7 @@ const Sidebar = () => {
         <Dashboard />
         
         <div className='flex flex-row gap-4'>
-          {/* <Button /> */}
+          <Button />
         </div>
         
         
@@ -64,7 +64,7 @@ const Sidebar = () => {
       <div className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${mobileMenuOpen ? 'left-0' : '-left-full'}`}>
         <img src={logo} alt="logo" className="w-full object-contain" />
         <Dashboard />
-       {/* <Button /> */}
+       <Button />
        
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
         
