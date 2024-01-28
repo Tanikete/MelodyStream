@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { HiOutlineHashtag, HiOutlineHome, HiOutlineMenu, HiOutlinePhotograph, HiOutlineUserGroup } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
 // import Button from './Button';
+import Dashboard from '../pages/Dashboard';
 
 import { logo } from '../assets';
 
@@ -39,6 +40,7 @@ const Sidebar = () => {
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#774f92]">
    
         <img src={logo} alt="logo" className="w-full object-contain" />
+        <Dashboard />
         
         <div className='flex flex-row gap-4'>
           {/* <Button /> */}
