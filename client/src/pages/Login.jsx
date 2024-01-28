@@ -144,21 +144,7 @@ export default function Login() {
     }
     
   }
-  const logoutUser = async () => {
-    try {
-      const { data } = await axios.post("/logout");
-      if (data.success) {
-        // Clear local storage or perform any other necessary cleanup
-        toast.success("Logout successful");
-        navigate("/login"); // Redirect to login page or any other page
-      } else {
-        toast.error("Logout failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error during logout:", error.message);
-      toast.error("An error occurred during logout. Please try again.");
-    }
-  };
+  
 
   return (
     <div>
@@ -169,7 +155,7 @@ export default function Login() {
         <input type="password" placeholder="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value})}  />
         <button type="submit">Login</button>
       </form>
-      <button onClick={logoutUser}>Logout</button>
+     
     </div>
   );
 }
