@@ -119,7 +119,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -132,31 +132,53 @@ export default function Login() {
     e.preventDefault();
     const { email, password } = data;
     try {
-      const {data} = await axios.post('/login', {email, password});
-      if(data.error){
-        toast.error(data.error)
+      const { data: response } = await axios.post('/login', { email, password });
+      if (response.error) {
+        toast.error(response.error);
       } else {
-        setData({})
-        navigate('/')
-        window.location.reload()
+        
+        setData({});
+        navigate('/');
+        window.location.reload();
+        toast.success("Login successful!");
       }
     } catch (error) {
-      
+      toast.error(error.message);
     }
-    
   }
-  
+
 
   return (
-    <div>
-      <form onSubmit={loginUser}>
-      <label>Email</label>
-        <input type="text" placeholder="email" value={data.email} onChange={(e) => setData({...data, email: e.target.value})} />
-        <label>Password</label>
-        <input type="password" placeholder="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value})}  />
-        <button type="submit">Login</button>
+    <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center flex-col bg-black z-50">
+      <form onSubmit={loginUser} className="bg-white p-8 shadow-md rounded-md">
+        <label className="block mb-4">
+          Email:
+          <input
+            type="text"
+            placeholder="Email"
+            value={data.email}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+            className="mt-1 p-2 border w-full rounded-md"
+          />
+        </label>
+        <label className="block mb-4">
+          Password:
+          <input
+            type="password"
+            placeholder="Password"
+            value={data.password}
+            onChange={(e) => setData({ ...data, password: e.target.value })}
+            className="mt-1 p-2 border w-full rounded-md"
+          />
+        </label>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
+          Login
+        </button>
+        <div className="mt-4">
+          Don't have an account? <Link to="/signup" className="text-blue-500">Sign up here</Link>
+        </div>
       </form>
-     
+
     </div>
   );
 }

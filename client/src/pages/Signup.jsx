@@ -89,11 +89,12 @@
 // };
 
 // export default SignupForm;
+
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -101,38 +102,65 @@ export default function Register() {
     name: '',
     email: '',
     password: '',
-    
   });
 
   const registerUser = async (e) => {
     e.preventDefault();
     const { name, email, password } = data;
     try {
-      const {data} = await axios.post('/register', {name, email, password})
-      if(data.error){
-        toast.error(data.error)
+      const { data } = await axios.post('/register', { name, email, password });
+      if (data.error) {
+        toast.error(data.error);
       } else {
-        setData({})
-        toast.success('Login successful')
-        navigate('/login')
+        setData({});
+        toast.success('Login successful');
+        navigate('/login');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
-    <div>
-      <form onSubmit={registerUser}>
-        <label>Name</label>
-        <input type="text" placeholder="username" value={data.name} onChange={(e) => setData({...data, name: e.target.value})} />
-        <label>Email</label>
-        <input type="text" placeholder="email" value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-        <label>Password</label>
-        <input type="password" placeholder="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value})} />
-      
-        <button type='submit'>Register</button>
+    <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center flex-col bg-black z-50">
+      <form onSubmit={registerUser} className="bg-white p-8 shadow-md rounded-md">
+        <label className="block mb-4">
+          Name:
+          <input
+            type="text"
+            placeholder="username"
+            value={data.name}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+            className="mt-1 p-2 border w-full rounded-md"
+          />
+        </label>
+        <label className="block mb-4">
+          Email:
+          <input
+            type="text"
+            placeholder="email"
+            value={data.email}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+            className="mt-1 p-2 border w-full rounded-md"
+          />
+        </label>
+        <label className="block mb-4">
+          Password:
+          <input
+            type="password"
+            placeholder="password"
+            value={data.password}
+            onChange={(e) => setData({ ...data, password: e.target.value })}
+            className="mt-1 p-2 border w-full rounded-md"
+          />
+        </label>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
+          Register
+        </button>
+        <div className="mt-4">
+          Already have an account? <Link to="/login" className="text-blue-500">Login here</Link>
+        </div>
       </form>
     </div>
-  )
+  );
 }
