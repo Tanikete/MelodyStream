@@ -50,4 +50,23 @@
     color: #f687b3; /* Ending color (pink-500) */
   }
 }
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
+.text-gradient {
+  background: linear-gradient(45deg, #ff8a00, #e52e71, #4f5bd5);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientAnimation 3s ease infinite;
+}
