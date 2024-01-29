@@ -37,7 +37,7 @@ const Sidebar = () => {
   return (
     <>
     
-      <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#774f92]">
+      <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#1d1a1f]">
    
         <img src={logo} alt="logo" className="w-full object-contain" />
         <Dashboard />
