@@ -90,31 +90,32 @@
 
 // export default SignupForm;
 
-import React from 'react';
-import { useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
-import { useNavigate, Link } from 'react-router-dom';
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate, Link } from "react-router-dom";
+import { logo } from "../assets";
 
 export default function Register() {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const registerUser = async (e) => {
     e.preventDefault();
     const { name, email, password } = data;
     try {
-      const { data } = await axios.post('/register', { name, email, password });
+      const { data } = await axios.post("/register", { name, email, password });
       if (data.error) {
         toast.error(data.error);
       } else {
         setData({});
-        toast.success('Login successful');
-        navigate('/login');
+        toast.success("Login successful");
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
@@ -123,7 +124,21 @@ export default function Register() {
 
   return (
     <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center flex-col bg-black z-50">
-      <form onSubmit={registerUser} className="bg-white p-8 shadow-md rounded-md">
+      <img src={logo} alt="Logo" className="mb-4" width="200" height="200" />
+      <div className="w-1/3">
+      <form
+        onSubmit={registerUser}
+        className="bg-transparent p-8 shadow-md rounded-md text-gray-500 "
+      >
+      <div
+      className="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-green-400 to-pink-500 bg-clip-text"
+      style={{
+        userSelect: 'none',
+        animation: 'textGradient 3s infinite alternate',
+      }}
+    >
+      Registration Page
+    </div>
         <label className="block mb-4">
           Name:
           <input
@@ -154,13 +169,25 @@ export default function Register() {
             className="mt-1 p-2 border w-full rounded-md"
           />
         </label>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
-          Register
-        </button>
+        <div className="mt-4 flex justify-center">
+          <button
+            type="submit"
+            className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          >
+            Register
+          </button>
+        </div>
+
         <div className="mt-4">
-          Already have an account? <Link to="/login" className="text-blue-500">Login here</Link>
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500">
+            Login here
+          </Link>
         </div>
       </form>
+
+      </div>
+      
     </div>
   );
 }

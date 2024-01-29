@@ -41,3 +41,13 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+@keyframes textGradient {
+  0% {
+    color: #68d391; /* Starting color (green-400) */
+  }
+  100% {
+    color: #f687b3; /* Ending color (pink-500) */
+  }
+}
+
