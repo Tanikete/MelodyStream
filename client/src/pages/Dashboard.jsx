@@ -18,7 +18,8 @@ export default function Dashboard() {
             if (response.ok) {
                 // Handle successful logout
                 setUser(null);
-                navigate('/login');
+                // navigate('/login');
+                window.location.reload();
             } else {
                 // Handle logout failure
                 console.error('Failed to log out:', response.statusText);
@@ -30,7 +31,7 @@ export default function Dashboard() {
 
     const handleSignIn = () => {
         navigate("/login");
-        // window.location.reload();
+       
     };
 
     const handleSignUp = () => {

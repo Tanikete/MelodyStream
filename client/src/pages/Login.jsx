@@ -138,6 +138,7 @@ export default function Login() {
       } else {
         setData({})
         navigate('/')
+        window.location.reload()
       }
     } catch (error) {
       
