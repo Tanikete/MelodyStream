@@ -77,10 +77,30 @@ const logoutUser = (req, res) => {
     res.clearCookie('token').json({ message: 'Logged out successfully' });
 };
 
+//reset password endpoint
+const resetPassword = async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        // check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.json({ error: 'No user found' });
+        }
+        // hash new password
+        const hashedPassword = await hashPassword(newPassword);
+        // update user's password in the database
+        await User.findByIdAndUpdate(user._id, { password: hashedPassword });
+        res.json({ message: 'Password reset successful' });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     test,
     registerUser,
     loginUser,
     getProfile,
-    logoutUser
+    logoutUser,
+    resetPassword
 }

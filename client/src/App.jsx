@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import { UserContextProvider } from '../context/userContext';
+import ResetPasswordForm from './pages/ResetPassword';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -40,6 +41,7 @@ const App = () => {
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignupForm />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/reset-password" element={<ResetPasswordForm />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
