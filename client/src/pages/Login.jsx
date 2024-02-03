@@ -203,6 +203,12 @@ export default function Login() {
               Sign up here
             </Link>
           </div>
+          <div className="mt-4">
+            Forgot your password?{" "}
+            <Link to="/reset-password" className="text-blue-500">
+              Reset password here
+            </Link>
+          </div>
         </form>
       </div>
     </div>
