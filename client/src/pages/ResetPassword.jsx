@@ -5,30 +5,52 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logo } from "../assets";
 
 const ResetPasswordForm = () => {
-  const [email, setEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [newPassword, setNewPassword] = useState('');
+  const [data, setData] = useState({
+    email: '',
+    newPassword: '',
+  });
   const navigate = useNavigate();
  
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-
-    try {
-      // Make API request to reset password
-      const response = await axios.post('http://localhost:8000/reset-password', {
-        email,
-        newPassword,
-      });
-
-      // Display success message
-      toast.success(response.data.message);
-      // Redirect user to login page
-      navigate("/login")
-    } catch (error) {
-      // Display error message
-      toast.error(error.message);
-    }
+const { email, newPassword } = data;
+      try{
+        const { data: response } = await axios.post("/reset-password", {
+          email,
+          newPassword,
+        });
+        if (response.error) {
+          toast.error('Email not found');
+        } else {
+          setData({});
+          navigate("/login");
+          
+          toast.success("Reset Password successful!");
+        }
+      }
+      catch (error) {
+        toast.error(error.message);
+      }
   };
+  //   try {
+  //     // Make API request to reset password
+  //     const response = await axios.post('http://localhost:8000/reset-password', {
+  //       email,
+  //       newPassword,
+  //     });
+
+  //     // Display success message
+  //     toast.success(response.data.message);
+  //     // Redirect user to login page
+  //     navigate("/login")
+  //   } catch (error) {
+  //     // Display error message
+  //     toast.error(error.message);
+  //   }
+  // };
 
   return (
     <div className="absolute top-0 left-0 h-full w-full flex justify-center items-center flex-col bg-black z-50">
@@ -47,24 +69,23 @@ const ResetPasswordForm = () => {
           >
             Password Reset
           </div>
-
           <label className="block mb-4">
             Email:
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              type="text"
+              placeholder="Email"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
               className="mt-1 p-2 border w-full rounded-md"
             />
           </label>
           <label className="block mb-4">
-            New Password:
+            Password:
             <input
               type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
+              placeholder="Password"
+              value={data.password}
+              onChange={(e) => setData({ ...data, newPassword: e.target.value })}
               className="mt-1 p-2 border w-full rounded-md"
             />
           </label>
