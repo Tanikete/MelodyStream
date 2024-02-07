@@ -8,6 +8,7 @@ router.options('*', cors());
 router.use(cors({
     origin: 'https://melody-stream.vercel.app',
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 router.get("/", test)
