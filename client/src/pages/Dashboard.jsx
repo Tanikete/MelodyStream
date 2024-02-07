@@ -19,8 +19,7 @@ export default function Dashboard() {
             if (response.ok) {
                 // Handle successful logout
                 setUser(null);
-                // navigate('/login');
-                window.location.reload();
+                navigate('/login'); // Navigate to the login page after logout
                 toast.success("Logout successful");
             } else {
                 // Handle logout failure
@@ -59,17 +58,16 @@ export default function Dashboard() {
             )}
             {!!user && (
                 <>
-                    <div >
-                    <h2 className="text-gradient font-semibold text-xl">
-      Hi {user.name}!
-    </h2>
-                        <div className="fixed bottom-32 transform -translate-x-1/2">  
-                        <button
-                            onClick={handleSignOut}
-                            className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br hover:text-pink-400 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition-all duration-300 transform hover:translate-x-[-5px]">
-                        
-                            Sign Out
-                        </button>
+                    <div>
+                        <h2 className="text-gradient font-semibold text-xl">
+                            Hi {user.username}! {/* Assuming the username is the property you want to display */}
+                        </h2>
+                        <div className="fixed bottom-32 transform -translate-x-1/2">
+                            <button
+                                onClick={handleSignOut}
+                                className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br hover:text-pink-400 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition-all duration-300 transform hover:translate-x-[-5px]">
+                                Sign Out
+                            </button>
                         </div>
                     </div>
                 </>
