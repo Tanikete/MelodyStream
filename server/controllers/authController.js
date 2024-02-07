@@ -42,8 +42,8 @@ const loginUser = async (req, res) => {
                 { expiresIn: '1h' },
                 (err, token) => {
                     if (err) throw err;
-                    res.cookie('token', token, { secure: true, httpOnly: true, sameSite: 'Strict' }).json(user);
-
+                    res.cookie('token', token, { secure: true, httpOnly: true, sameSite: 'Strict' });
+                    res.json(user);
                 }
             );
         } else {
