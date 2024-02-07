@@ -140,9 +140,11 @@ export default function Login() {
       if (response.error) {
         toast.error(response.error);
       } else {
+        // Set the token in local storage
+        localStorage.setItem('token', response.token);
+
         setData({});
         navigate("/");
-        window.location.reload();
         toast.success("Login successful!");
       }
     } catch (error) {
@@ -160,14 +162,14 @@ export default function Login() {
           className="bg-transparent p-8 shadow-md rounded-md text-gray-500"
         >
           <div
-      className="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-green-400 to-pink-500 bg-clip-text"
-      style={{
-        userSelect: 'none',
-        animation: 'textGradient 3s infinite alternate',
-      }}
-    >
-      Login Page
-    </div>
+            className="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-green-400 to-pink-500 bg-clip-text"
+            style={{
+              userSelect: 'none',
+              animation: 'textGradient 3s infinite alternate',
+            }}
+          >
+            Login Page
+          </div>
 
           <label className="block mb-4">
             Email:
@@ -214,3 +216,4 @@ export default function Login() {
     </div>
   );
 }
+
