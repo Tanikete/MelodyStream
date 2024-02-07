@@ -57,10 +57,22 @@ const loginUser = async (req, res) => {
 const getProfile = (req, res) => {
     const { token } = req.cookies;
     if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-            if (err) throw err;
-            res.json(user);
-        });
+        try {
+            jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+                if (err) {
+                    res.status(500).json({ error: 'Authentication failed' });
+                } else {
+                    const profile = {
+                        id: user.id,
+                        username: user.username,
+                        email: user.email
+                    };
+                    res.json(profile);
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
     } else {
         res.json(null);
     }
