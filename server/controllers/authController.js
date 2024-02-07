@@ -47,7 +47,7 @@ const loginUser = async (req, res) => {
         //check if password is correct
         const valid = await comparePassword(password, user.password);
         if(valid) {
-            jwt.sign({email: user.email, id: user._id, name: user.name}, process.env.JWT_SECRET, {}, (err, token) => {
+            jwt.sign({email: user.email, id: user._id, name: user.name}, process.env.JWT_SECRET,{ expiresIn: '1h' }, {}, (err, token) => {
                 if(err) throw err;
                 res.cookie('token', token).json(user)
             })
