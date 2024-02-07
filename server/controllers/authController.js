@@ -54,23 +54,13 @@ const loginUser = async (req, res) => {
     }
 };
 
-const getProfile = (req, res) => {
+const getProfile = async (req, res) => {
     const { token } = req.cookies;
     if (token) {
         try {
-            jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-                if (err) {
-                    res.status(500).json({ error: 'Authentication failed' });
-                } else {
-                    const profile = {
-                        id: user.id,
-                        username: user.username,
-                        email: user.email
-                    };
-                    res.cookie('token', token, { httpOnly: true }); // Set the cookie in the response
-                    res.json(profile);
-                }
-            });
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const user = await User.findById(decoded.id).select('-password');
+            res.cookie('token', token, { secure: true, httpOnly: true, sameSite: 'Strict' }).json(user);
         } catch (error) {
             res.status(500).json({ error: 'Internal Server Error' });
         }
@@ -78,7 +68,6 @@ const getProfile = (req, res) => {
         res.json(null);
     }
 };
-
 const logoutUser = (req, res) => {
     res.clearCookie('token').json({ message: 'Logged out successfully' });
 };

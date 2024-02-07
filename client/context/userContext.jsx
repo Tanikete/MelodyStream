@@ -1,30 +1,20 @@
-import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { createContext, useState, useEffect } from 'react';
 
-export const userContext = createContext({});
+export const userContext = createContext({})
 
-export function UserContextProvider({ children }) {
+export function UserContextProvider({children}) {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
     useEffect(() => {
-        if (!user) {
-            axios.get('https://melody-stream-server.vercel.app/profile')
-                .then(({ data }) => {
-                    setUser(data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    setError(error.message || 'Error fetching user data');
-                    setLoading(false);
-                });
-        }
-    }, [user]);
-
+        if(!user){
+            axios.get('/profile').then(({data}) => {
+                setUser(data);
+        })
+    }
+    }, [])
     return (
-        <userContext.Provider value={{ user, setUser, loading, error }}>
+        <userContext.Provider value={{user, setUser}}>
             {children}
         </userContext.Provider>
-    );
+    )
 }
