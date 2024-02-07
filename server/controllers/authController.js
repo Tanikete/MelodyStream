@@ -67,6 +67,7 @@ const getProfile = (req, res) => {
                         username: user.username,
                         email: user.email
                     };
+                    res.cookie('token', token, { httpOnly: true }); // Set the cookie in the response
                     res.json(profile);
                 }
             });
