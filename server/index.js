@@ -14,6 +14,7 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
+app.use(cors({ origin: 'https://melody-stream.vercel.app' }));
 
 app.use("/", require("./routes/authRoutes"));
 
