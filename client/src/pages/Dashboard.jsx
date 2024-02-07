@@ -12,7 +12,7 @@ export default function Dashboard() {
             // Make a request to the server to clear the token
             const response = await fetch("https://melody-stream-server.vercel.app/logout", {
                 method: "POST",
-                credentials: "omit", // Include credentials (cookies) in the request
+                credentials: "include", // Include credentials (cookies) in the request
             });
 
             // Handle the response as needed (redirect, update UI, etc.)
