@@ -7,7 +7,7 @@ const { test, registerUser, loginUser, getProfile, logoutUser, resetPassword } =
 //middleware
 router.use(cors(
     {
-        origin: 'http://localhost:3000',
+        origin: 'https://melody-stream.vercel.app/',
         credentials: true
     }
 ));
