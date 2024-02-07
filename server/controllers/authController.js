@@ -69,6 +69,7 @@ const getProfile = (req, res) => {
         })
     } else {
         res.json(null)
+        console.log(getProfile)
     }
 }
 
