@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast';
 import { UserContextProvider } from '../context/userContext';
 import ResetPasswordForm from './pages/ResetPassword';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://melody-stream-server.vercel.app/';
 axios.defaults.withCredentials = true;
 
 
