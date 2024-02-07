@@ -14,19 +14,7 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
-app.get('/profile', async (req, res) => {
-    const { token } = req.cookies;
-    if (!token) {
-      return res.json({ error: 'Not logged in' });
-    }
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decoded.id).select('-password');
-      res.json({ name: user.name });
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+
 app.use("/", require("./routes/authRoutes"));
 
 const port = 8000;
