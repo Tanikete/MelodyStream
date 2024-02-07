@@ -4,7 +4,7 @@ const cors = require('cors');
 const { test, registerUser, loginUser, getProfile, logoutUser, resetPassword } = require('../controllers/authController');
 
 //middleware
-router.options('*', cors());
+
 router.use(cors({
     origin: 'https://melody-stream.vercel.app',
     credentials: true,
