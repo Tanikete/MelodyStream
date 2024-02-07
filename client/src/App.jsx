@@ -14,7 +14,7 @@ import { UserContextProvider } from '../context/userContext';
 import ResetPasswordForm from './pages/ResetPassword';
 
 axios.defaults.baseURL = 'https://melody-stream-server.vercel.app';
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = omit;
 
 
 const App = () => {

@@ -8,7 +8,7 @@ const { test, registerUser, loginUser, getProfile, logoutUser, resetPassword } =
 router.use(cors(
     {
         origin: 'https://melody-stream.vercel.app',
-        credentials: true
+        credentials: omit
     }
 ));
 
