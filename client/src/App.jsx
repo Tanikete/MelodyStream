@@ -10,7 +10,7 @@ import SignupForm from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
-import { UserContextProvider } from '../context/userContext';
+import { UserContextProvider } from './context/userContext';
 import ResetPasswordForm from './pages/ResetPassword';
 
 axios.defaults.baseURL = 'https://melody-stream-server.vercel.app';
