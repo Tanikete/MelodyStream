@@ -110,7 +110,7 @@ const User = require('../models/user');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 
 const verifyTokenMiddleware = (req, res, next) => {
-    const { token } = req.cookies;
+    const token = req.cookies.token;
 
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' });
@@ -175,7 +175,7 @@ const loginUser = async (req, res) => {
                     console.error(err);
                     return res.status(500).json({ error: 'Internal Server Error' });
                 }
-                res.cookie('token', token).json({ user, token });
+                res.cookie('token', token, { httpOnly: true }).json({ user, token });
             });
         } else {
             res.status(401).json({ error: 'Invalid password' });
@@ -191,7 +191,7 @@ const getProfile = (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-    res.clearCookie('token').json({ message: 'Logged out successfully' });
+    res.clearCookie('token', { httpOnly: true }).json({ message: 'Logged out successfully' });
 };
 
 const resetPassword = async (req, res) => {
