@@ -49,7 +49,13 @@ const loginUser = async (req, res) => {
         if(valid) {
             jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
                 if (err) throw err;
-                res.cookie('token', token).json(user);
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'none',
+                    
+                
+                }).json(user);
             });
             
         }
