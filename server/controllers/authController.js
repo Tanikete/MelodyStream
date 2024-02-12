@@ -121,6 +121,7 @@ const verifyTokenMiddleware = (req, res, next) => {
 // };
 const logoutUser = (req, res) => {
     res.clearCookie('token', { path: '/' }); // clear the cookie
+    req.user = null; // clear the user data from the request object
     res.json({ message: 'Logged out successfully' });
 };
 
