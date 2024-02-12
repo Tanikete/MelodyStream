@@ -47,10 +47,11 @@ const loginUser = async (req, res) => {
         //check if password is correct
         const valid = await comparePassword(password, user.password);
         if(valid) {
-            jwt.sign({email: user.email, id: user._id, name: user.name}, process.env.JWT_SECRET, {}, (err, token) => {
-                if(err) throw err;
-                res.cookie('token', token).json(user)
-            })
+            jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token).json(user);
+            });
+            
         }
         if(!valid) {
             res.json({error: 'Invalid password'});
@@ -61,17 +62,21 @@ const loginUser = async (req, res) => {
 }
 
 const getProfile = (req, res) => {
-    const {token} = req.cookies
-    if(token) {
-        jwt.verify(token, process.env.JWT_SECRET, {} , (err, user) => {
-            if(err) throw err;
-            res.json(user)
-        })
+    const { token } = req.cookies;
+
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+            if (err) {
+                // Token is invalid or expired
+                return res.status(401).json({ error: 'Unauthorized' });
+            }
+            res.json(user);
+        });
     } else {
-        res.json(null)
-        console.log(getProfile)
+        res.json(null);
     }
-}
+};
+
 
 //logoutendpoint
 const logoutUser = (req, res) => {
