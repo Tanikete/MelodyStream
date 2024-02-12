@@ -116,8 +116,12 @@ const verifyTokenMiddleware = (req, res, next) => {
 
 
 //logoutendpoint
+// const logoutUser = (req, res) => {
+//     res.clearCookie('token').json({ message: 'Logged out successfully' });
+// };
 const logoutUser = (req, res) => {
-    res.clearCookie('token').json({ message: 'Logged out successfully' });
+    res.clearCookie('token', { path: '/' }); // clear the cookie
+    res.json({ message: 'Logged out successfully' });
 };
 
 //reset password endpoint
