@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
                     sameSite: 'none',
-                    
+
                 
                 }).json(user);
             });
@@ -67,21 +67,52 @@ const loginUser = async (req, res) => {
     }
 }
 
-const getProfile = (req, res) => {
+// const getProfile = (req, res) => {
+//     const { token } = req.cookies;
+
+//     if (token) {
+//         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+//             if (err) {
+//                 // Token is invalid or expired
+//                 return res.status(401).json({ error: 'Unauthorized' });
+//             }
+//             res.json(user);
+//         });
+//     } else {
+//         res.json(null);
+//     }
+// };
+
+const getProfile = async (req, res) => {
+    // The user data should be attached to the request object by the middleware
+    const { user } = req;
+
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(401).json({ error: 'Unauthorized' });
+    }
+};
+
+// Middleware for verifying JWT token
+const verifyTokenMiddleware = (req, res, next) => {
     const { token } = req.cookies;
 
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-            if (err) {
-                // Token is invalid or expired
-                return res.status(401).json({ error: 'Unauthorized' });
+            if (!err) {
+                // If the token is valid, attach user data to the request object
+                req.user = user;
             }
-            res.json(user);
+            // Continue to the next middleware regardless of token validity
+            next();
         });
     } else {
-        res.json(null);
+        // Continue to the next middleware if there is no token
+        next();
     }
 };
+
 
 
 //logoutendpoint
@@ -114,5 +145,6 @@ module.exports = {
     loginUser,
     getProfile,
     logoutUser,
-    resetPassword
+    resetPassword,
+    verifyTokenMiddleware
 }
