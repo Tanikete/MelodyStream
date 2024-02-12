@@ -145,6 +145,7 @@ export default function Login() {
 
         setData({});
         navigate("/");
+        window.location.reload();
         toast.success("Login successful!");
       }
     } catch (error) {
