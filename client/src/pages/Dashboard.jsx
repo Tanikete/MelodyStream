@@ -10,7 +10,7 @@ export default function Dashboard() {
     const handleSignOut = async () => {
         try {
             // Make a request to the server to clear the token
-            const response = await fetch("/logout", {
+            const response = await fetch("https://melody-stream-server.vercel.app/logout", {
                 method: "POST",
                 credentials: "include", // Include credentials (cookies) in the request
             });
