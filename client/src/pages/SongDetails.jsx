@@ -8,28 +8,31 @@ import { useGetSongDetailsQuery, useGetSongRelatedQuery } from '../redux/service
 
 const SongDetails = () => {
   const dispatch = useDispatch();
-  const { songid } = useParams();
+  const { songid, id: artistId } = useParams();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
-  const { data: relatedSongs, isFetching: isFetchingRelatedSongs, error: relatedSongsError } = useGetSongRelatedQuery({ songid });
-  const { data: songData, isFetching: isFetchingSongDetails, error: songDetailsError } = useGetSongDetailsQuery({ songid });
+  const { data, isFetching: isFetchinRelatedSongs, error } = useGetSongRelatedQuery({ songid });
+  const { data: songData, isFetching: isFetchingSongDetails } = useGetSongDetailsQuery({ songid });
 
-  if (isFetchingSongDetails && isFetchingRelatedSongs) return <Loader title="Searching song details" />;
+  if (isFetchingSongDetails && isFetchinRelatedSongs) return <Loader title="Searching song details" />;
 
-  if (relatedSongsError || songDetailsError) return <Error />;
+  console.log(songData);
+
+  if (error) return <Error />;
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
 
   const handlePlayClick = (song, i) => {
-    dispatch(setActiveSong({ song, data: relatedSongs, i }));
+    dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
   };
 
   return (
     <div className="flex flex-col">
       <DetailsHeader
+        artistId={artistId}
         songData={songData}
       />
 
@@ -37,8 +40,8 @@ const SongDetails = () => {
         <h2 className="text-white text-3xl font-bold">Lyrics:</h2>
 
         <div className="mt-5">
-          {songData?.lyrics
-            ? songData?.lyrics.map((line, i) => (
+          {songData?.sections[1].type === 'LYRICS'
+            ? songData?.sections[1]?.text.map((line, i) => (
               <p key={`lyrics-${line}-${i}`} className="text-gray-300 text-base my-1">{line}</p>
             ))
             : (
@@ -48,7 +51,8 @@ const SongDetails = () => {
       </div>
 
       <RelatedSongs
-        data={relatedSongs}
+        data={data}
+        artistId={artistId}
         isPlaying={isPlaying}
         activeSong={activeSong}
         handlePauseClick={handlePauseClick}
